@@ -33,35 +33,102 @@ html.a11y-large {
   font-size: 20px;
 }
 
-/* Erisilebilirlik: Yuksek kontrast modu */
+/* ===========================================================
+   Erisilebilirlik: Yuksek kontrast modu (koyu tema, tum site)
+   =========================================================== */
+html.a11y-contrast,
 html.a11y-contrast body {
-  background-color: #ffffff;
-  color: #000000;
+  background-color: #000000 !important;
+  color: #ffffff !important;
 }
 
+/* Beyaz yuzeyler (navbar, kartlar) -> koyu + belirgin beyaz cerceve */
+html.a11y-contrast .bg-white {
+  background-color: #0a0a0a !important;
+  border: 2px solid #ffffff !important;
+}
+
+/* Acik gri kutular -> koyu gri */
+html.a11y-contrast .bg-slate-50,
+html.a11y-contrast .bg-slate-100,
+html.a11y-contrast .bg-slate-200 {
+  background-color: #1f1f1f !important;
+}
+
+/* Metin renkleri -> beyaz */
 html.a11y-contrast .text-slate-400,
 html.a11y-contrast .text-slate-500,
-html.a11y-contrast .text-slate-600 {
-  color: #1e293b !important;
+html.a11y-contrast .text-slate-600,
+html.a11y-contrast .text-slate-700,
+html.a11y-contrast .text-slate-800 {
+  color: #ffffff !important;
 }
 
-html.a11y-contrast .bg-slate-50,
-html.a11y-contrast .bg-slate-100 {
-  background-color: #ffffff !important;
+/* Vurgu metin renkleri -> koyu zeminde okunur acik tonlar */
+html.a11y-contrast .text-brand-primary {
+  color: #93c5fd !important;
+}
+html.a11y-contrast .text-yellow-600 {
+  color: #fde047 !important;
 }
 
+/* Kenarliklar -> beyaz */
 html.a11y-contrast .border-slate-100,
 html.a11y-contrast .border-slate-200,
 html.a11y-contrast .border-slate-300 {
-  border-color: #334155 !important;
+  border-color: #ffffff !important;
 }
 
+/* Acik renkli bilgi/durum kutulari -> koyu zemin + acik metin (semantik korunur) */
+html.a11y-contrast .bg-blue-50 {
+  background-color: #0b1f3a !important;
+  border-color: #93c5fd !important;
+}
+html.a11y-contrast .bg-green-50 {
+  background-color: #052e16 !important;
+  border-color: #4ade80 !important;
+}
+html.a11y-contrast .bg-red-50 {
+  background-color: #3f0a0a !important;
+  border-color: #f87171 !important;
+}
+html.a11y-contrast .bg-amber-50 {
+  background-color: #3a1d03 !important;
+  border-color: #fbbf24 !important;
+}
+html.a11y-contrast .text-green-800,
+html.a11y-contrast .text-green-700 {
+  color: #86efac !important;
+}
+html.a11y-contrast .text-red-800,
+html.a11y-contrast .text-red-700 {
+  color: #fca5a5 !important;
+}
+html.a11y-contrast .text-amber-800,
+html.a11y-contrast .text-amber-700 {
+  color: #fcd34d !important;
+}
+html.a11y-contrast .text-blue-700,
+html.a11y-contrast .text-blue-800 {
+  color: #93c5fd !important;
+}
+
+/* Govde dugmesi (mavi) yuksek kontrastta net dursun */
+html.a11y-contrast .bg-brand-primary {
+  background-color: #1d4ed8 !important;
+  border: 2px solid #ffffff !important;
+}
+
+/* Golgeleri kaldir, yerine net cerceve */
 html.a11y-contrast .shadow-md,
 html.a11y-contrast .shadow-sm {
-  box-shadow: 0 0 0 2px #0f172a !important;
+  box-shadow: none !important;
 }
 
-html.a11y-contrast a,
-html.a11y-contrast button {
-  outline-offset: 2px;
+/* Klavye/odak gorunurlugu */
+html.a11y-contrast a:focus-visible,
+html.a11y-contrast button:focus-visible,
+html.a11y-contrast input:focus-visible {
+  outline: 3px solid #fde047 !important;
+  outline-offset: 2px !important;
 }

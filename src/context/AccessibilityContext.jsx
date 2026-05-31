@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { AccessibilityContext } from './accessibility-core'
 
 const STORAGE_KEY = 'dgs-a11y'
@@ -14,11 +14,20 @@ function loadSettings() {
   }
 }
 
+function findTurkishVoice(voices) {
+  if (!voices || !voices.length) return null
+  const norm = (s) => (s || '').toLowerCase().replace('_', '-')
+  return (
+    voices.find((v) => norm(v.lang).startsWith('tr')) ||
+    voices.find((v) => /t[uü]rk|t[uü]rkçe|turkish/i.test(v.name || '')) ||
+    null
+  )
+}
+
 export function AccessibilityProvider({ children }) {
   const [settings, setSettings] = useState(loadSettings)
   const [speaking, setSpeaking] = useState(false)
   const ttsSupported = typeof window !== 'undefined' && 'speechSynthesis' in window
-  const voicesRef = useRef([])
 
   useEffect(() => {
     const root = document.documentElement
@@ -33,13 +42,12 @@ export function AccessibilityProvider({ children }) {
 
   useEffect(() => {
     if (!ttsSupported) return
-    const loadVoices = () => {
-      voicesRef.current = window.speechSynthesis.getVoices()
-    }
-    loadVoices()
-    window.speechSynthesis.addEventListener?.('voiceschanged', loadVoices)
+    // Bazi tarayicilarda sesler tembel yuklenir; onceden tetikle.
+    window.speechSynthesis.getVoices()
+    const warm = () => window.speechSynthesis.getVoices()
+    window.speechSynthesis.addEventListener?.('voiceschanged', warm)
     return () => {
-      window.speechSynthesis.removeEventListener?.('voiceschanged', loadVoices)
+      window.speechSynthesis.removeEventListener?.('voiceschanged', warm)
       window.speechSynthesis.cancel()
     }
   }, [ttsSupported])
@@ -53,16 +61,41 @@ export function AccessibilityProvider({ children }) {
   const speak = useCallback(
     (text) => {
       if (!ttsSupported || !text) return
-      window.speechSynthesis.cancel()
-      const utterance = new SpeechSynthesisUtterance(String(text))
-      utterance.lang = 'tr-TR'
-      utterance.rate = 0.95
-      const trVoice = voicesRef.current.find((v) => v.lang?.toLowerCase().startsWith('tr'))
-      if (trVoice) utterance.voice = trVoice
-      utterance.onend = () => setSpeaking(false)
-      utterance.onerror = () => setSpeaking(false)
-      setSpeaking(true)
-      window.speechSynthesis.speak(utterance)
+      const synth = window.speechSynthesis
+      synth.cancel()
+
+      const run = (voices) => {
+        const utterance = new SpeechSynthesisUtterance(String(text))
+        utterance.lang = 'tr-TR'
+        utterance.rate = 0.95
+        const trVoice = findTurkishVoice(voices)
+        if (trVoice) utterance.voice = trVoice
+        utterance.onend = () => setSpeaking(false)
+        utterance.onerror = () => setSpeaking(false)
+        setSpeaking(true)
+        synth.speak(utterance)
+      }
+
+      // Sesleri her seferinde taze oku (stale liste Ingilizce sese dusurur).
+      const voices = synth.getVoices()
+      if (voices.length) {
+        run(voices)
+      } else {
+        // Sesler henuz yuklenmedi: yuklenince yalnizca bir kez calistir.
+        let done = false
+        const fire = () => {
+          if (done) return
+          done = true
+          synth.removeEventListener?.('voiceschanged', onVoices)
+          run(synth.getVoices())
+        }
+        const onVoices = () => fire()
+        synth.addEventListener?.('voiceschanged', onVoices)
+        // Guvenlik agi: kisa bir gecikmeyle de dene.
+        setTimeout(() => {
+          if (!done && synth.getVoices().length) fire()
+        }, 300)
+      }
     },
     [ttsSupported],
   )

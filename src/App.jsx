@@ -14,7 +14,7 @@ export default function App() {
       <BrowserRouter>
         <Navbar />
         <AccessibilityBar />
-        <main className="pt-[6.75rem] min-h-screen bg-[#f8fafc]">
+        <main className="pt-[6.75rem] min-h-screen">
           <Routes>
             <Route path="/" element={<SimulatorPage />} />
             <Route path="/sifre" element={<PasswordGeneratorPage />} />
