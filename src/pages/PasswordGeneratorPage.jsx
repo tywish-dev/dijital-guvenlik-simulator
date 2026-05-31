@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { RefreshCw, Copy, Check } from 'lucide-react'
 import PasswordStrengthMeter from '../components/PasswordStrengthMeter'
+import SpeakButton from '../components/SpeakButton'
 
 const SETS = {
   upper: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
@@ -187,7 +188,10 @@ export default function PasswordGeneratorPage() {
       </div>
 
       <div className="mt-6 bg-white rounded-2xl shadow-md p-6 animate-fadeIn">
-        <h3 className="font-bold text-slate-800 mb-3">Güçlü Şifre İpuçları</h3>
+        <div className="flex items-center justify-between gap-2 mb-3">
+          <h3 className="font-bold text-slate-800">Güçlü Şifre İpuçları</h3>
+          <SpeakButton text={`Güçlü şifre ipuçları. ${tips.join('. ')}`} label="Dinle" />
+        </div>
         <ul className="space-y-2">
           {tips.map((tip) => (
             <li key={tip} className="flex items-start gap-2 text-sm text-slate-600">

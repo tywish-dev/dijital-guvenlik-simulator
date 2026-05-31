@@ -1,91 +1,86 @@
+// Not: correct degeri dogru secenegin DATA icindeki sirasidir.
+// Test sayfasi (SimulatorPage) secenekleri her denemede karistirir,
+// boylece dogru cevap her zaman ayni yerde olmaz.
 export const questions = [
   {
     id: 1,
-    question:
-      "E-posta kutuna 'e-Devlet hesabın kilitlendi, şifreni buradan güncelle' konulu bir mesaj geldi. Ne yaparsın?",
+    question: 'E-postanıza "e-Devlet şifrenizi güncelleyin" diyen bir mesaj geldi. Ne yaparsınız?',
     scenario:
-      "📧 Gelen Kutusu: 'Sayın kullanıcı, hesabınız şüpheli aktivite nedeniyle askıya alındı. Şifrenizi güncellemek için tıklayın: http://e-devlet-giris.net'",
+      '📧 Gelen mesaj: "Hesabınız kilitlendi. Şifrenizi güncellemek için tıklayın: http://e-devlet-giris.net"',
     options: [
       'Linke tıklarım, hesabım kilitlenmiş olabilir',
-      'Linki görmezden gelir, e-devlet.gov.tr adresine kendim giderim',
-      'Linki arkadaşıma gönderirim',
+      'Linke tıklamam, kendim turkiye.gov.tr yazarım',
+      'Linki bir arkadaşıma gönderirim',
     ],
     correct: 1,
     explanation:
-      'Bu klasik bir oltalama (phishing) saldırısıdır. Resmi kurumlar asla e-posta ile şifre güncelleme linki göndermez. Her zaman tarayıcınıza resmi adresi kendiniz yazın: e-devlet.gov.tr',
+      'Bu bir tuzak (oltalama) mesajıdır. Resmi kurumlar e-posta ile şifre değiştirme linki göndermez. Adresi her zaman kendiniz yazın: turkiye.gov.tr',
   },
   {
     id: 2,
-    question:
-      "Kafede ücretsiz herkese açık Wi-Fi kullanırken e-Devlet'e giriş yapmak ister misin?",
-    scenario:
-      "☕ Bir kafede oturuyorsun. 'FreeWifi_Cafe' ağına bağlısın ve acil e-Devlet işlemin var.",
+    question: 'Kafedeki ücretsiz Wi-Fi ile e-Devlet’e girmeli misiniz?',
+    scenario: '☕ Bir kafedesiniz. "FreeWifi_Cafe" ağına bağlısınız ve e-Devlet işiniz var.',
     options: [
-      'Evet giriş yaparım, şifrem güçlü zaten',
-      'Hayır, mobil verimi kullanırım',
+      'Evet girerim, şifrem güçlü zaten',
+      'Hayır, kendi mobil internetimi kullanırım',
       'Evet ama gizli sekme açarım',
     ],
     correct: 1,
     explanation:
-      "Halka açık Wi-Fi ağlarında verileriniz şifrelenmemiş olabilir. Saldırganlar 'man-in-the-middle' yöntemiyle oturum bilgilerinizi ele geçirebilir. Kamu ve bankacılık işlemlerinizi sadece güvenilir ağlardan yapın.",
+      'Herkese açık Wi-Fi güvenli değildir. Başkaları bilgilerinizi görebilir. Devlet ve banka işlemlerini sadece güvendiğiniz internetle yapın.',
   },
   {
     id: 3,
-    question:
-      "Telefonda seni arayan 'banka yetkilisi', SMS ile gelen doğrulama kodunu istedi. Ne yaparsın?",
+    question: 'Sizi arayan "banka görevlisi" SMS ile gelen kodu istiyor. Ne yaparsınız?',
     scenario:
-      "📱 Telefon çalıyor: 'Merhaba, bankanızın güvenlik birimi arıyor. Hesabınızda şüpheli işlem var. Güvenliğiniz için SMS kodunuzu alabilir miyiz?'",
+      '📱 Telefon çalıyor: "Bankanızdan arıyorum. Hesabınızda sorun var. Güvenlik için SMS kodunuzu söyler misiniz?"',
     options: [
-      'Kodu veririm, yetkili biri istedi',
-      'Kapatır, bankamı resmi numarasından ararım',
-      'Sadece son 3 rakamını söylerim',
+      'Kodu söylerim, sonuçta banka arıyor',
+      'Telefonu kapatır, bankamı kendim ararım',
+      'Sadece son rakamları söylerim',
     ],
     correct: 1,
     explanation:
-      'Hiçbir banka veya devlet kurumu sizden SMS doğrulama kodunu telefonda istemez. Bu sosyal mühendislik saldırısıdır. Hemen kapatın ve bankanızı resmi numarasından arayın.',
+      'Hiçbir banka telefonda SMS kodunuzu istemez. Bu bir dolandırıcılıktır. Telefonu kapatın ve bankanızı kartın arkasındaki resmi numaradan arayın.',
   },
   {
     id: 4,
-    question:
-      "Tarayıcında şu adresi gördün: 'https://www.e-d3vlet.gov.tr' — Bu siteye güvenir misin?",
-    scenario:
-      "🌐 Arama motorunda e-Devlet'i arattın ve ilk sonuç olarak bu link çıktı: https://www.e-d3vlet.gov.tr",
+    question: 'Adres çubuğunda "https://www.e-d3vlet.gov.tr" yazıyor. Güvenir misiniz?',
+    scenario: '🌐 Aramada çıkan bağlantı: https://www.e-d3vlet.gov.tr',
     options: [
-      'Evet, HTTPS var ve güvenli görünüyor',
-      "Hayır, alan adında '3' harfi var, sahte site",
-      'Evet, .gov.tr uzantısı güvenlidir',
+      'Evet, https var güvenli görünüyor',
+      'Hayır, adreste "3" var, bu sahte bir site',
+      'Evet, .gov.tr yazıyor güvenlidir',
     ],
     correct: 1,
     explanation:
-      "URL'de 'devlet' yerine 'e-d3vlet' yazıyor. Rakam '3' ile sahte domain oluşturulmuş. HTTPS bağlantının şifreli olduğunu gösterir ama sitenin gerçek olduğunu kanıtlamaz. Adresi her zaman dikkatlice okuyun.",
+      'Adreste "devlet" yerine "e-d3vlet" yazıyor; harf yerine "3" konmuş. Bu sahte bir sitedir. "https" olması sitenin gerçek olduğunu göstermez. Adresi dikkatle okuyun.',
   },
   {
     id: 5,
-    question: 'Tüm hesapların için aynı şifreyi kullanıyor musun?',
-    scenario:
-      '🔑 E-Devlet, e-posta, sosyal medya, alışveriş siteleri... Hepsinde aynı şifreyi kullanmak ne kadar riskli?',
+    question: 'Tüm hesaplarınızda aynı şifreyi mi kullanıyorsunuz?',
+    scenario: '🔑 e-Devlet, e-posta, sosyal medya... Hepsinde aynı şifre ne kadar risklidir?',
     options: [
-      'Kullanıyorum, tek şifre ezberlemek kolay',
-      'Hayır, her hesap için farklı şifre kullanıyorum',
-      '2-3 farklı şifre arasında değişiyorum',
+      'Evet, tek şifre ezberlemesi kolay',
+      'Hayır, her hesapta farklı şifre kullanırım',
+      'İki üç şifre arasında değiştiririm',
     ],
     correct: 1,
     explanation:
-      "Bir platformda veri sızıntısı olduğunda aynı şifreyi kullanan tüm hesaplarınız tehlikeye girer. Buna 'Credential Stuffing' saldırısı denir. Her hesap için benzersiz şifre kullanın, şifre yöneticilerinden faydalanın.",
+      'Bir site ele geçirilirse, aynı şifreyi kullandığınız tüm hesaplarınız tehlikeye girer. Her hesap için farklı şifre kullanın. Şifre yöneticisi bunu kolaylaştırır.',
   },
   {
     id: 6,
-    question: 'e-Devlet şifreni nereye kaydediyorsun?',
-    scenario:
-      '📝 Şifrenizi unutmamak için not almak istiyorsunuz. En güvenli yöntem hangisi?',
+    question: 'e-Devlet şifrenizi nereye yazarsınız?',
+    scenario: '📝 Şifrenizi unutmamak için bir yere not almak istiyorsunuz. En güvenlisi hangisi?',
     options: [
-      'Not defterine yazıp cüzdanımda taşıyorum',
-      'Bitwarden gibi şifreli bir şifre yöneticisi kullanıyorum',
-      'Telefonumun not uygulamasına yazıyorum',
+      'Bir kâğıda yazıp cüzdanımda taşırım',
+      'Bitwarden gibi güvenli bir şifre programına yazarım',
+      'Telefonun not defterine yazarım',
     ],
     correct: 1,
     explanation:
-      'Fiziksel not taşımak kaybolma ve çalınma riski yaratır. Telefon not uygulamaları şifrelenmemiş olabilir. Bitwarden veya KeePass gibi ücretsiz şifre yöneticileri şifrelerinizi güvenle saklar.',
+      'Kâğıt kaybolabilir veya çalınabilir. Telefon notları korumasız olabilir. Bitwarden veya KeePass gibi ücretsiz şifre programları şifrelerinizi güvenle saklar.',
   },
 ]
 

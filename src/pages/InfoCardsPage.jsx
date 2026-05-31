@@ -1,4 +1,5 @@
 import { Fish, ShieldCheck, Globe, KeyRound } from 'lucide-react'
+import SpeakButton from '../components/SpeakButton'
 
 const cards = [
   {
@@ -120,6 +121,13 @@ export default function InfoCardsPage() {
                     </li>
                   ))}
                 </ul>
+
+                <div className="mt-4">
+                  <SpeakButton
+                    text={`${card.title}. ${card.definition}. ${card.items.join('. ')}`}
+                    label="Bu Kartı Sesli Dinle"
+                  />
+                </div>
               </div>
             </article>
           )

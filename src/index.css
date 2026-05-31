@@ -27,3 +27,41 @@ body {
 * {
   box-sizing: border-box;
 }
+
+/* Erisilebilirlik: Buyuk yazi modu (rem tabanli oldugu icin tum arayuzu olcekler) */
+html.a11y-large {
+  font-size: 20px;
+}
+
+/* Erisilebilirlik: Yuksek kontrast modu */
+html.a11y-contrast body {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+html.a11y-contrast .text-slate-400,
+html.a11y-contrast .text-slate-500,
+html.a11y-contrast .text-slate-600 {
+  color: #1e293b !important;
+}
+
+html.a11y-contrast .bg-slate-50,
+html.a11y-contrast .bg-slate-100 {
+  background-color: #ffffff !important;
+}
+
+html.a11y-contrast .border-slate-100,
+html.a11y-contrast .border-slate-200,
+html.a11y-contrast .border-slate-300 {
+  border-color: #334155 !important;
+}
+
+html.a11y-contrast .shadow-md,
+html.a11y-contrast .shadow-sm {
+  box-shadow: 0 0 0 2px #0f172a !important;
+}
+
+html.a11y-contrast a,
+html.a11y-contrast button {
+  outline-offset: 2px;
+}
